@@ -21,6 +21,7 @@ void setup()
 {
   //GENERAL SETTINGS
   fullScreen();
+  //size(1920,1080);
   colorMode(RGB);
   shapeMode(CENTER);
   rectMode(CENTER);
@@ -50,7 +51,7 @@ void setup()
   //EFFECT SETTUP
   renderEffects = true;
   effects = new ArrayList<Effect>();
-  
+
   //ICON SETUP
   icons = new Icon[4];
   icons[0] = new Icon(width/2-width*.1, height * .95, "Last");
@@ -122,11 +123,14 @@ void draw()
         temp.render();
 
         if (temp.notValid())
+        {
           effects.remove(temp);
+          i--;
+        }
       }
 
       //ADDING EFFECTS BASED ON SOUND LEVEL
-      for (int i = 0; i < map(amp.analyze(), .7, 1, 0, 50); i++)
+      for (int i = 0; i < map(amp.analyze(), .7, 1, 0, 25); i++)
         effects.add(new Effect(get((int)random(width/2-image.width/2, width/2+image.width/2), (int)random(height/2-image.height/2, height/2+image.height/2))));
 
       //FIREWORK EFFECTS IF SOUND IS VERY LOUD
@@ -135,7 +139,7 @@ void draw()
         color col = get((int)random(width/2-image.width/2, width/2+image.width/2), (int)random(height/2-image.height/2, height/2+image.height/2));
         float x = random(0, width);
         float y = random(0, height);
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 25; i++)
           effects.add(new Effect(x, y, col));
       }
     }
@@ -188,7 +192,7 @@ void loadData()
   amp = new Amplitude(this);
   amp.input(song);
   doneLoading = true;
-  
+
   //LOADS SONG TO THE LEFT AND RIGHT
   loadImage(songs.curr.prev.data.imageFile);
   loadImage(songs.curr.next.data.imageFile);

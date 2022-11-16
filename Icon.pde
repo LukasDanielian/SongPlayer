@@ -37,7 +37,7 @@ class Icon
     //WHITE EFFECTS AROUND CIRCLE
     if(amp.analyze() > .85 && renderEffects)
     {
-      for(int i = 0; i < 20; i++)
+      for(int i = 0; i < 10; i++)
         effects.add(new Effect(x,y,255));
     }
   }
